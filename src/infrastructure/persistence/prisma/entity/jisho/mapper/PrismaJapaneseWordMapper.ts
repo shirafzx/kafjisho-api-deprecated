@@ -1,14 +1,25 @@
 import { JapaneseWord } from '@core/domain/jisho/entity/JapaneseWord';
-import { PrismaJapaneseWordEntity } from '../PrismaJapaneseWord';
+import {
+  PrismaJapaneseWordEntity,
+  PrismaJapaneseWordEntityIncluded,
+} from '../PrismaJapaneseWord';
+import { PrismaJpThMeaningMapper } from 'src/infrastructure/persistence/prisma/entity/jisho/mapper/PrismaJPTHMeaningMapper';
 
 export class PrismaJapaneseWordMapper {
-  static toDomain(entity: PrismaJapaneseWordEntity): JapaneseWord {
+  static toDomain(
+    entity: PrismaJapaneseWordEntity & PrismaJapaneseWordEntityIncluded,
+  ): JapaneseWord {
+    const jpThMeanings = entity.jp_th_meanings
+      ? PrismaJpThMeaningMapper.toDomains(entity.jp_th_meanings)
+      : null;
+
     return new JapaneseWord({
       id: entity.id,
       word: entity.word,
       furigana: entity.furigana,
       createdAt: entity.created_at,
       updatedAt: entity.updated_at,
+      jpThMeanings,
     });
   }
 

@@ -1,31 +1,36 @@
-import { GetJapaneseWordQueryDto } from '@application/api/http-rest/validation-pipe/jisho/GetJapaneseWordQuery';
+import { GetJapaneseWordsQueryDto } from '@application/api/http-rest/validation-pipe/jisho/GetJapaneseWordsQuery';
+import { PaginationQueryDto } from '@common/dto/PaginationQueryDto';
+import { PaginationTransformPipe } from '@common/pipes/PaginationValidationPipe';
 import { JishoDiToken } from '@core/domain/jisho/di/JishoDiToken';
 import {
-  GetJapaneseWordUseCasePayload,
-  IGetJapaneseWordUseCase,
-} from '@core/domain/jisho/usecase/GetJapaneseWordUseCase';
+  GetJapaneseWordsUseCasePayload,
+  IGetJapaneseWordsUseCase,
+} from '@core/domain/jisho/usecase/GetJapaneseWordsUseCase';
 import { Controller, Get, Inject, Query, ValidationPipe } from '@nestjs/common';
 
 @Controller('/jisho')
 export class JishoController {
   constructor(
-    @Inject(JishoDiToken.GetJapaneseWordUseCase)
-    private readonly getJapaneseWordUseCase: IGetJapaneseWordUseCase,
+    @Inject(JishoDiToken.GetJapaneseWordsUseCase)
+    private readonly getJapaneseWordsUseCase: IGetJapaneseWordsUseCase,
   ) {}
 
-  @Get('/word')
-  async getJapaneseWord(
+  @Get('/search')
+  async getJapaneseWords(
     @Query(new ValidationPipe({ transform: true }))
-    query: GetJapaneseWordQueryDto,
+    query: GetJapaneseWordsQueryDto,
+    @Query(new PaginationTransformPipe())
+    pagination: PaginationQueryDto,
   ) {
     const { word } = query;
-    const payload: GetJapaneseWordUseCasePayload = {
+    const payload: GetJapaneseWordsUseCasePayload = {
       by: {
         word,
       },
+      pagination,
     };
 
-    const response = await this.getJapaneseWordUseCase.execute(payload);
+    const response = await this.getJapaneseWordsUseCase.execute(payload);
     return response;
   }
 }

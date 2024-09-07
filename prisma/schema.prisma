@@ -8,13 +8,13 @@ datasource db {
 }
 
 model japanese_words {
-  id              Int               @id @default(autoincrement())
-  word            String            @unique
-  furigana        String
-  created_at      DateTime          @default(now())
-  updated_at      DateTime          @updatedAt
-  jp_eng_meanings jp_eng_meanings[]
-  jp_th_meanings  jp_th_meanings[]
+  id             Int              @id @default(autoincrement())
+  word           String           @unique
+  furigana       String
+  created_at     DateTime         @default(now())
+  updated_at     DateTime         @updatedAt
+  jp_en_meanings jp_en_meanings[]
+  jp_th_meanings jp_th_meanings[]
 }
 
 model thai_words {
@@ -26,31 +26,31 @@ model thai_words {
 }
 
 model english_words {
-  id              Int               @id @default(autoincrement())
-  word            String            @unique
-  created_at      DateTime          @default(now())
-  updated_at      DateTime          @updatedAt
-  jp_eng_meanings jp_eng_meanings[]
+  id             Int              @id @default(autoincrement())
+  word           String           @unique
+  created_at     DateTime         @default(now())
+  updated_at     DateTime         @updatedAt
+  jp_en_meanings jp_en_meanings[]
 }
 
 model jp_th_meanings {
   id               Int            @id @default(autoincrement())
-  created_at       DateTime       @default(now())
-  updated_at       DateTime       @updatedAt
   japanese_word_id Int
   thai_word_id     Int
+  created_at       DateTime       @default(now())
+  updated_at       DateTime       @updatedAt
   japanese_word    japanese_words @relation(fields: [japanese_word_id], references: [id])
   thai_word        thai_words     @relation(fields: [thai_word_id], references: [id])
 
   @@unique([japanese_word_id, thai_word_id])
 }
 
-model jp_eng_meanings {
+model jp_en_meanings {
   id               Int            @id @default(autoincrement())
-  created_at       DateTime       @default(now())
-  updated_at       DateTime       @updatedAt
   japanese_word_id Int
   english_word_id  Int
+  created_at       DateTime       @default(now())
+  updated_at       DateTime       @updatedAt
   japanese_word    japanese_words @relation(fields: [japanese_word_id], references: [id])
   english_word     english_words  @relation(fields: [english_word_id], references: [id])
 

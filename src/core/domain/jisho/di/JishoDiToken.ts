@@ -1,7 +1,7 @@
 export class JishoDiToken {
   // UseCase
-  public static readonly GetJapaneseWordUseCase: unique symbol = Symbol(
-    'GetJapaneseWordUseCase',
+  public static readonly GetJapaneseWordsUseCase: unique symbol = Symbol(
+    'GetJapaneseWordsUseCase',
   );
 
   // Service

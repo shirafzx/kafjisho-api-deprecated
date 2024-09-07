@@ -2,7 +2,7 @@ import { JishoController } from '@application/api/http-rest/controller/jisho/Jis
 import { InfrastructureModule } from '@application/di/InfrastructureModule';
 import { CoreDiToken } from '@common/di/CoreDiToken';
 import { JishoDiToken } from '@core/domain/jisho/di/JishoDiToken';
-import { GetJapaneseWordUseCase } from '@core/usecase/jisho/GetJapaneseWordUseCase';
+import { GetJapaneseWordsUseCase } from '@core/usecase/jisho/GetJapaneseWordsUseCase';
 import { Module, Provider } from '@nestjs/common';
 import PrismaJapaneseWordRepositoryAdapter from 'src/infrastructure/persistence/prisma/repository/jisho/PrismaJapaneseWordRepositoryAdapter';
 
@@ -16,9 +16,9 @@ const persistenceProviders: Provider[] = [
 const serviceProvider: Provider[] = [];
 const useCaseProvider: Provider[] = [
   {
-    provide: JishoDiToken.GetJapaneseWordUseCase,
+    provide: JishoDiToken.GetJapaneseWordsUseCase,
     useFactory: (japaneseWordRepository) =>
-      new GetJapaneseWordUseCase(japaneseWordRepository),
+      new GetJapaneseWordsUseCase(japaneseWordRepository),
     inject: [JishoDiToken.JapaneseWordRepository],
   },
 ];

@@ -1,3 +1,4 @@
+import { JpThMeaning } from '@core/domain/jisho/entity/JpThMeaning';
 import { Nullable } from 'src/common/types';
 
 export type japaneseWordParams = {
@@ -6,7 +7,9 @@ export type japaneseWordParams = {
   furigana: string;
   createdAt: Nullable<Date>;
   updatedAt: Nullable<Date>;
-  // relatiom
+
+  // relation
+  jpThMeanings?: Nullable<JpThMeaning[]>;
 };
 
 export type CreateJapaneseWordEntityPayload = japaneseWordParams;

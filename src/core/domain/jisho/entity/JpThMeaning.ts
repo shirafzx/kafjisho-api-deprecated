@@ -1,20 +1,22 @@
-import { IsDate, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsDate, IsNumber, IsOptional } from 'class-validator';
 import { Nullable } from 'src/common/types';
+import { JapaneseWord } from '@core/domain/jisho/entity/JapaneseWord';
+import { CreateJapaneseWordEntityPayload } from '@core/domain/jisho/type/JapaneseWordType';
 import {
-  CreateJapaneseWordEntityPayload,
-  UpdateJapaneseWordEntityPayload,
-} from '../type/JapaneseWordType';
-import { JpThMeaning } from '@core/domain/jisho/entity/JpThMeaning';
+  CreateJpThMeaningEntityPayload,
+  UpdateJpThMeaningdEntityPayload,
+} from '@core/domain/jisho/type/JPTHMeaningType';
+import { ThaiWord } from '@core/domain/jisho/entity/ThaiWord';
 
-export class JapaneseWord {
+export class JpThMeaning {
   @IsNumber()
   private id: number;
 
-  @IsString()
-  private word: string;
+  @IsNumber()
+  private japaneseWordid: number;
 
-  @IsString()
-  private furigana: string;
+  @IsNumber()
+  private thaiWordid: number;
 
   @IsDate()
   @IsOptional()
@@ -25,33 +27,33 @@ export class JapaneseWord {
   private updatedAt?: Nullable<Date>;
 
   // relation
-  private jpThMeanings?: Nullable<JpThMeaning[]>;
+  private thaiWord?: Nullable<ThaiWord>;
 
-  constructor(params: CreateJapaneseWordEntityPayload) {
+  constructor(params: CreateJpThMeaningEntityPayload) {
     if (!params) return;
 
     const currentDate = new Date();
 
     this.id = params.id;
-    this.word = params.word;
-    this.furigana = params.furigana;
+    this.japaneseWordid = params.japaneseWordId;
+    this.thaiWordid = params.thaiWordId;
     this.createdAt = params.createdAt || currentDate;
     this.updatedAt = params.updatedAt || currentDate;
 
     // relation
-    this.jpThMeanings = params.jpThMeanings;
+    this.thaiWord = params.thaiWord;
   }
 
   getId(): number {
     return this.id;
   }
 
-  getWord(): string {
-    return this.word;
+  getJapaneseWordid(): number {
+    return this.japaneseWordid;
   }
 
-  getFurigana(): string {
-    return this.furigana;
+  getThaiWordid(): number {
+    return this.thaiWordid;
   }
 
   getCreatedAt(): Date {
@@ -62,17 +64,11 @@ export class JapaneseWord {
     return this.updatedAt;
   }
 
-  getJpThMeaning(): JpThMeaning[] {
-    return this.jpThMeanings;
+  getThaiWord(): ThaiWord {
+    return this.thaiWord;
   }
 
-  getThaiMeaning(): string[] {
-    return this.jpThMeanings.map((jpThMeaning) =>
-      jpThMeaning.getThaiWord().getWord(),
-    );
-  }
-
-  public async edit(params: UpdateJapaneseWordEntityPayload): Promise<this> {
+  public async edit(params: UpdateJpThMeaningdEntityPayload): Promise<this> {
     const currentDate = new Date();
 
     Object.keys(params).forEach((key) => {

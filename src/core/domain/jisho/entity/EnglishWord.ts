@@ -1,20 +1,16 @@
 import { IsDate, IsNumber, IsOptional, IsString } from 'class-validator';
 import { Nullable } from 'src/common/types';
 import {
-  CreateJapaneseWordEntityPayload,
-  UpdateJapaneseWordEntityPayload,
-} from '../type/JapaneseWordType';
-import { JpThMeaning } from '@core/domain/jisho/entity/JpThMeaning';
+  CreateEnglishWordEntityPayload,
+  UpdateEnglishWordEntityPayload,
+} from '@core/domain/jisho/type/EnglishWordType';
 
-export class JapaneseWord {
+export class EnglishWord {
   @IsNumber()
   private id: number;
 
   @IsString()
   private word: string;
-
-  @IsString()
-  private furigana: string;
 
   @IsDate()
   @IsOptional()
@@ -25,21 +21,16 @@ export class JapaneseWord {
   private updatedAt?: Nullable<Date>;
 
   // relation
-  private jpThMeanings?: Nullable<JpThMeaning[]>;
 
-  constructor(params: CreateJapaneseWordEntityPayload) {
+  constructor(params: CreateEnglishWordEntityPayload) {
     if (!params) return;
 
     const currentDate = new Date();
 
     this.id = params.id;
     this.word = params.word;
-    this.furigana = params.furigana;
     this.createdAt = params.createdAt || currentDate;
     this.updatedAt = params.updatedAt || currentDate;
-
-    // relation
-    this.jpThMeanings = params.jpThMeanings;
   }
 
   getId(): number {
@@ -50,10 +41,6 @@ export class JapaneseWord {
     return this.word;
   }
 
-  getFurigana(): string {
-    return this.furigana;
-  }
-
   getCreatedAt(): Date {
     return this.createdAt;
   }
@@ -62,17 +49,7 @@ export class JapaneseWord {
     return this.updatedAt;
   }
 
-  getJpThMeaning(): JpThMeaning[] {
-    return this.jpThMeanings;
-  }
-
-  getThaiMeaning(): string[] {
-    return this.jpThMeanings.map((jpThMeaning) =>
-      jpThMeaning.getThaiWord().getWord(),
-    );
-  }
-
-  public async edit(params: UpdateJapaneseWordEntityPayload): Promise<this> {
+  public async edit(params: UpdateEnglishWordEntityPayload): Promise<this> {
     const currentDate = new Date();
 
     Object.keys(params).forEach((key) => {
@@ -88,9 +65,9 @@ export class JapaneseWord {
   }
 
   public async new(
-    params: CreateJapaneseWordEntityPayload,
-  ): Promise<JapaneseWord> {
-    const entity = new JapaneseWord(params);
+    params: CreateEnglishWordEntityPayload,
+  ): Promise<EnglishWord> {
+    const entity = new EnglishWord(params);
     return entity;
   }
 }

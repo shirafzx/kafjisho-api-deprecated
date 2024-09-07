@@ -3,8 +3,8 @@ export type PaginationParams = {
   pageSize: number;
 };
 
-export type PaginateDtoParams<T> = {
+export type PaginationDtoParams<T> = {
   items: T[];
-  paginate: PaginationParams;
+  pagination: PaginationParams;
   itemCount: number;
 };

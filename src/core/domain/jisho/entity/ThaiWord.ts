@@ -1,20 +1,18 @@
 import { IsDate, IsNumber, IsOptional, IsString } from 'class-validator';
 import { Nullable } from 'src/common/types';
+import { JapaneseWord } from '@core/domain/jisho/entity/JapaneseWord';
 import {
-  CreateJapaneseWordEntityPayload,
-  UpdateJapaneseWordEntityPayload,
-} from '../type/JapaneseWordType';
-import { JpThMeaning } from '@core/domain/jisho/entity/JpThMeaning';
+  CreateThaiWordEntityPayload,
+  UpdateThaiWordEntityPayload,
+} from '@core/domain/jisho/type/ThaiWordType';
+import { CreateJapaneseWordEntityPayload } from '@core/domain/jisho/type/JapaneseWordType';
 
-export class JapaneseWord {
+export class ThaiWord {
   @IsNumber()
   private id: number;
 
   @IsString()
   private word: string;
-
-  @IsString()
-  private furigana: string;
 
   @IsDate()
   @IsOptional()
@@ -25,21 +23,16 @@ export class JapaneseWord {
   private updatedAt?: Nullable<Date>;
 
   // relation
-  private jpThMeanings?: Nullable<JpThMeaning[]>;
 
-  constructor(params: CreateJapaneseWordEntityPayload) {
+  constructor(params: CreateThaiWordEntityPayload) {
     if (!params) return;
 
     const currentDate = new Date();
 
     this.id = params.id;
     this.word = params.word;
-    this.furigana = params.furigana;
     this.createdAt = params.createdAt || currentDate;
     this.updatedAt = params.updatedAt || currentDate;
-
-    // relation
-    this.jpThMeanings = params.jpThMeanings;
   }
 
   getId(): number {
@@ -50,10 +43,6 @@ export class JapaneseWord {
     return this.word;
   }
 
-  getFurigana(): string {
-    return this.furigana;
-  }
-
   getCreatedAt(): Date {
     return this.createdAt;
   }
@@ -62,17 +51,7 @@ export class JapaneseWord {
     return this.updatedAt;
   }
 
-  getJpThMeaning(): JpThMeaning[] {
-    return this.jpThMeanings;
-  }
-
-  getThaiMeaning(): string[] {
-    return this.jpThMeanings.map((jpThMeaning) =>
-      jpThMeaning.getThaiWord().getWord(),
-    );
-  }
-
-  public async edit(params: UpdateJapaneseWordEntityPayload): Promise<this> {
+  public async edit(params: UpdateThaiWordEntityPayload): Promise<this> {
     const currentDate = new Date();
 
     Object.keys(params).forEach((key) => {
