@@ -12,7 +12,7 @@ export class GetJapaneseWordsUseCaseDto {
   @Expose()
   furigana: string;
 
-  meaning: {
+  meanings: {
     thai: string[];
   };
 
@@ -22,7 +22,7 @@ export class GetJapaneseWordsUseCaseDto {
       japaneseWord,
     );
 
-    dto.meaning = {
+    dto.meanings = {
       thai: japaneseWord.getThaiMeaning(),
     };
     return dto;
