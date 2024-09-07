@@ -21,7 +21,29 @@ export class GetJapaneseWordsUseCase implements IGetJapaneseWordsUseCase {
     const { by, pagination } = params;
 
     const where: findJapaneseWordWhere = {
-      OR: [{ word: by.word }, { furigana: by.word }],
+      OR: [
+        {
+          word: {
+            contains: by.word,
+          },
+        },
+        {
+          furigana: {
+            contains: by.word,
+          },
+        },
+        {
+          jp_th_meanings: {
+            some: {
+              thai_word: {
+                word: {
+                  contains: by.word,
+                },
+              },
+            },
+          },
+        },
+      ],
     };
 
     const [JapaneseWords, itemCount] = await Promise.all([
