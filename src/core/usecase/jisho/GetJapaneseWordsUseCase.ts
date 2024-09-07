@@ -39,7 +39,7 @@ export class GetJapaneseWordsUseCase implements IGetJapaneseWordsUseCase {
       this.japaneseWordRepository.countWords({ where }),
     ]);
 
-    if (!JapaneseWords) {
+    if (JapaneseWords.length === 0) {
       throw new HttpException('Word Not Found', HttpStatus.NOT_FOUND);
     }
 
