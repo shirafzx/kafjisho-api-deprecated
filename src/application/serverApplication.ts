@@ -7,6 +7,12 @@ export class ServerApplication {
 
   public async run(): Promise<void> {
     const app = await NestFactory.create(RootModule);
+
+    app.enableCors({
+      origin: process.env.APP_DOMAIN,
+      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+      credentials: true,
+    });
     app.useGlobalPipes(
       new ValidationPipe({
         transform: true,
