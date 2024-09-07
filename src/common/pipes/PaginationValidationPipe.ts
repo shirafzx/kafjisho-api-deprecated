@@ -7,6 +7,7 @@ export class PaginationTransformPipe implements PipeTransform {
     if (!metatype) {
       return dto;
     }
+
     return plainToClass(metatype, dto, {
       exposeDefaultValues: true,
     });

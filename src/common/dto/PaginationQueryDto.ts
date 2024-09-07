@@ -1,6 +1,6 @@
 import {
   DEFAULT_PAGE,
-  DEFAUlt_PAGE_SIZE,
+  DEFAUlT_PAGE_SIZE,
   MAXIMUM_PAGE_SIZE,
   MINIMUM_PAGE_SIZE,
 } from '@common/constants/pagination';
@@ -21,5 +21,5 @@ export class PaginationQueryDto {
   @IsInt()
   @Min(MINIMUM_PAGE_SIZE)
   @Max(MAXIMUM_PAGE_SIZE)
-  public readonly pageSize: number = DEFAUlt_PAGE_SIZE;
+  public readonly pageSize: number = DEFAUlT_PAGE_SIZE;
 }
