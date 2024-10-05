@@ -5,6 +5,7 @@ on:
     branches:
       - main
 
+
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   REGION: asia-southeast1
