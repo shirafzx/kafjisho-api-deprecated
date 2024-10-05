@@ -12,7 +12,7 @@ model japanese_words {
   word           String           @unique
   furigana       String
   created_at     DateTime         @default(now())
-  updated_at     DateTime         @updatedAt
+  updated_at     DateTime?
   jp_en_meanings jp_en_meanings[]
   jp_th_meanings jp_th_meanings[]
 }
@@ -21,7 +21,7 @@ model thai_words {
   id             Int              @id @default(autoincrement())
   word           String           @unique
   created_at     DateTime         @default(now())
-  updated_at     DateTime         @updatedAt
+  updated_at     DateTime?
   jp_th_meanings jp_th_meanings[]
 }
 
@@ -29,7 +29,7 @@ model english_words {
   id             Int              @id @default(autoincrement())
   word           String           @unique
   created_at     DateTime         @default(now())
-  updated_at     DateTime         @updatedAt
+  updated_at     DateTime?
   jp_en_meanings jp_en_meanings[]
 }
 
@@ -38,7 +38,7 @@ model jp_th_meanings {
   japanese_word_id Int
   thai_word_id     Int
   created_at       DateTime       @default(now())
-  updated_at       DateTime       @updatedAt
+  updated_at       DateTime?
   japanese_word    japanese_words @relation(fields: [japanese_word_id], references: [id])
   thai_word        thai_words     @relation(fields: [thai_word_id], references: [id])
 
@@ -50,7 +50,7 @@ model jp_en_meanings {
   japanese_word_id Int
   english_word_id  Int
   created_at       DateTime       @default(now())
-  updated_at       DateTime       @updatedAt
+  updated_at       DateTime?
   japanese_word    japanese_words @relation(fields: [japanese_word_id], references: [id])
   english_word     english_words  @relation(fields: [english_word_id], references: [id])
 

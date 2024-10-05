@@ -5,7 +5,7 @@ import { CreateJapaneseWordEntityPayload } from '@core/domain/jisho/type/Japanes
 import {
   CreateJpThMeaningEntityPayload,
   UpdateJpThMeaningdEntityPayload,
-} from '@core/domain/jisho/type/JPTHMeaningType';
+} from '@core/domain/jisho/type/JpThMeaningType';
 import { ThaiWord } from '@core/domain/jisho/entity/ThaiWord';
 
 export class JpThMeaning {

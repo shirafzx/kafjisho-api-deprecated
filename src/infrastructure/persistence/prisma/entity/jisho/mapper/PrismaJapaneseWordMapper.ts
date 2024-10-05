@@ -3,7 +3,7 @@ import {
   PrismaJapaneseWordEntity,
   PrismaJapaneseWordEntityIncluded,
 } from '../PrismaJapaneseWord';
-import { PrismaJpThMeaningMapper } from 'src/infrastructure/persistence/prisma/entity/jisho/mapper/PrismaJPTHMeaningMapper';
+import { PrismaJpThMeaningMapper } from 'src/infrastructure/persistence/prisma/entity/jisho/mapper/PrismaJpThMeaningMapper';
 
 export class PrismaJapaneseWordMapper {
   static toDomain(

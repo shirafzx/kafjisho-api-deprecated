@@ -33,10 +33,6 @@ export default class PrismaJapaneseWordRepositoryAdapter
       ...buildQueryPagination(params.pagination),
     });
 
-    if (!entities) {
-      return null;
-    }
-
     return PrismaJapaneseWordMapper.toDomains(entities);
   }
 

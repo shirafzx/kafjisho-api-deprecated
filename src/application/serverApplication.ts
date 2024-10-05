@@ -3,7 +3,7 @@ import { RootModule } from './di/_rootModule';
 import { ValidationPipe } from '@nestjs/common';
 
 export class ServerApplication {
-  private readonly port: number = 4000;
+  private readonly port: number = Number(process.env.PORT) || 3000;
 
   public async run(): Promise<void> {
     const app = await NestFactory.create(RootModule);
