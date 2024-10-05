@@ -8,8 +8,10 @@ export class ServerApplication {
   public async run(): Promise<void> {
     const app = await NestFactory.create(RootModule);
 
+    const allowedOrigins = process.env.CORS_ORIGINS?.split(',') || [];
+
     app.enableCors({
-      origin: '*',
+      origin: allowedOrigins,
       methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
       credentials: true,
     });
