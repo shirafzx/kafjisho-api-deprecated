@@ -9,7 +9,7 @@ export class ServerApplication {
     const app = await NestFactory.create(RootModule);
 
     app.enableCors({
-      origin: process.env.APP_DOMAIN,
+      origin: '*',
       methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
       credentials: true,
     });
