@@ -1,6 +1,6 @@
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { UserRepositoryPort } from '@core/domain/authentication/port/persistence/UserRepositoryPort';
+import { UserRepositoryPort } from '@core/domain/user/port/persistence/UserRepositoryPort';
 import { CreateAccessTokenParams } from '@core/domain/authentication/type/AuthType';
 
 export class AuthService {
