@@ -1,8 +1,8 @@
-import { User } from '@core/domain/authentication/entity/User';
+import { User } from '@core/domain/user/entity/User';
 import {
   PrismaUserEntity,
   PrismaUserEntityIncluded,
-} from 'src/infrastructure/persistence/prisma/entity/authentication/PrismaUser';
+} from 'src/infrastructure/persistence/prisma/entity/user/PrismaUser';
 
 export class PrismaUserMapper {
   static toDomain(entity: PrismaUserEntity & PrismaUserEntityIncluded): User {

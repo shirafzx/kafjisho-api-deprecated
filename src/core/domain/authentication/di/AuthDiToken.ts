@@ -8,8 +8,6 @@ export class AuthDiToken {
   public static readonly AuthService: unique symbol = Symbol('AuthService');
 
   // Repository
-  public static readonly UserRepository: unique symbol =
-    Symbol('UserRepository');
 
   // Strategy
   public static readonly LocalStrategy: unique symbol = Symbol('LocalStrategy');

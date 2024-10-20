@@ -1,4 +1,4 @@
-import { User } from '@core/domain/authentication/entity/User';
+import { User } from '@core/domain/user/entity/User';
 import { Exclude, Expose, plainToClass } from 'class-transformer';
 
 @Exclude()

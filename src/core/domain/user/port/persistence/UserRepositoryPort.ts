@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client';
 import { PaginationParams } from '@common/type/PaginationType';
-import { User } from '@core/domain/authentication/entity/User';
+import { User } from '@core/domain/user/entity/User';
 
 export type findUserWhere = Prisma.usersWhereInput;
 export type findUserWhereUnique = Prisma.usersWhereUniqueInput;

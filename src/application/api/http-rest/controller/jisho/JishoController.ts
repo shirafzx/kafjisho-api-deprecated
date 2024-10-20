@@ -5,7 +5,7 @@ import { JishoDiToken } from '@core/domain/jisho/di/JishoDiToken';
 import {
   GetJapaneseWordsUseCasePayload,
   IGetJapaneseWordsUseCase,
-} from '@core/domain/jisho/usecase/GetJapaneseWordsUseCase';
+} from '@core/domain/jisho/useCase/GetJapaneseWordsUseCase';
 import { Controller, Get, Inject, Query, ValidationPipe } from '@nestjs/common';
 
 @Controller('/jisho')

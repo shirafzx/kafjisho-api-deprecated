@@ -1,4 +1,4 @@
-import { User } from '@core/domain/authentication/entity/User';
+import { User } from '@core/domain/user/entity/User';
 import {
   CountUserParams,
   CreateUserParams,
@@ -6,10 +6,10 @@ import {
   FindUsersParams,
   UpdateUserParams,
   UserRepositoryPort,
-} from '@core/domain/authentication/port/persistence/UserRepositoryPort';
+} from '@core/domain/user/port/persistence/UserRepositoryPort';
 
 import { PrismaService } from '@core/service/PrismaService';
-import { PrismaUserMapper } from 'src/infrastructure/persistence/prisma/entity/authentication/mapper/PrismaUserMapper';
+import { PrismaUserMapper } from 'src/infrastructure/persistence/prisma/entity/user/mapper/PrismaUserMapper';
 import { buildQueryPagination } from 'src/infrastructure/persistence/prisma/utility/PrismaQueryUtility';
 
 export default class PrismaUserRepositoryAdapter implements UserRepositoryPort {

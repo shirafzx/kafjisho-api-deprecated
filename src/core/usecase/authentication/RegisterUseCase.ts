@@ -1,5 +1,5 @@
-import { User } from '@core/domain/authentication/entity/User';
-import { UserRepositoryPort } from '@core/domain/authentication/port/persistence/UserRepositoryPort';
+import { User } from '@core/domain/user/entity/User';
+import { UserRepositoryPort } from '@core/domain/user/port/persistence/UserRepositoryPort';
 import {
   IRegisterUseCase,
   RegisterUseCasePayload,

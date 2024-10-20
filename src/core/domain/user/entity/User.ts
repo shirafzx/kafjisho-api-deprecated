@@ -3,7 +3,7 @@ import { Nullable } from 'src/common/types';
 import {
   CreateUserEntityPayload,
   UpdateUserEntityPayload,
-} from '@core/domain/authentication/type/UserType';
+} from '@core/domain/user/type/UserType';
 
 export class User {
   @IsNumber()

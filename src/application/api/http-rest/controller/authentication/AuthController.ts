@@ -5,7 +5,7 @@ import { AuthService } from '@core/domain/authentication/service/AuthService';
 import {
   IRegisterUseCase,
   RegisterUseCasePayload,
-} from '@core/domain/authentication/usecase/RegisterUseCase';
+} from '@core/domain/authentication/useCase/RegisterUseCase';
 import {
   Body,
   Controller,
