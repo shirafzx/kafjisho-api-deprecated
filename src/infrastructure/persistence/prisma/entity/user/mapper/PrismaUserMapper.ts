@@ -1,4 +1,5 @@
 import { User } from '@core/domain/user/entity/User';
+import { PrismaUserRoleMapper } from 'src/infrastructure/persistence/prisma/entity/authentication/mapper/PrismaUserRoleMapper';
 import {
   PrismaUserEntity,
   PrismaUserEntityIncluded,
@@ -6,6 +7,10 @@ import {
 
 export class PrismaUserMapper {
   static toDomain(entity: PrismaUserEntity & PrismaUserEntityIncluded): User {
+    const userRoles = entity.user_roles
+      ? PrismaUserRoleMapper.toDomains(entity.user_roles)
+      : null;
+
     return new User({
       id: entity.id,
       username: entity.username,
@@ -16,6 +21,7 @@ export class PrismaUserMapper {
       encryptPassword: entity.password,
       createdAt: entity.created_at,
       updatedAt: entity.updated_at,
+      userRoles,
     });
   }
 

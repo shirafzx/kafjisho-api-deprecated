@@ -11,6 +11,8 @@ import { JwtStrategy } from '@core/domain/authentication/strategy/jwtStrategy';
 import { LocalStrategy } from '@core/domain/authentication/strategy/localStrategy';
 import { UserDiToken } from '@core/domain/user/di/UserDiToken';
 import { UserModule } from '@application/di/UserModule';
+import { APP_GUARD, Reflector } from '@nestjs/core';
+import { RolesGuard } from '@core/domain/authentication/guard/RoleGuard';
 
 const persistenceProviders: Provider[] = [];
 const serviceProvider: Provider[] = [
@@ -30,7 +32,7 @@ const useCaseProvider: Provider[] = [
   },
 ];
 
-const strategyProvider: Provider[] = [
+const authProvider: Provider[] = [
   {
     provide: AuthDiToken.JwtStrategy,
     useFactory: () => new JwtStrategy(),
@@ -40,6 +42,11 @@ const strategyProvider: Provider[] = [
     useFactory: (authService) => new LocalStrategy(authService),
     inject: [AuthDiToken.AuthService],
   },
+  {
+    provide: RolesGuard,
+    useFactory: (reflector) => new RolesGuard(reflector),
+    inject: [Reflector],
+  },
 ];
 
 @Module({
@@ -48,7 +55,11 @@ const strategyProvider: Provider[] = [
     ...persistenceProviders,
     ...serviceProvider,
     ...useCaseProvider,
-    ...strategyProvider,
+    ...authProvider,
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: RolesGuard,
+    // },
   ],
   imports: [
     InfrastructureModule,
@@ -59,6 +70,6 @@ const strategyProvider: Provider[] = [
       signOptions: { expiresIn: '60m' },
     }),
   ],
-  exports: [],
+  exports: [AuthDiToken.JwtStrategy, AuthDiToken.LocalStrategy, RolesGuard],
 })
 export class AuthModule {}

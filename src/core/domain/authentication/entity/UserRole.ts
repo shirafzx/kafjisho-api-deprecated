@@ -1,8 +1,10 @@
-import { IsNumber } from 'class-validator';
+import { IsDate, IsNumber } from 'class-validator';
 import {
   CreateUserRoleEntityPayload,
   UpdateUserRoleEntityPayload,
 } from '@core/domain/authentication/type/UserRoleType';
+import { Nullable } from '@common/types';
+import { Role } from '@core/domain/authentication/entity/Role';
 
 export class UserRole {
   @IsNumber()
@@ -14,7 +16,11 @@ export class UserRole {
   @IsNumber()
   private roleId: number;
 
+  @IsDate()
+  private assignedAt: Date;
+
   // relation
+  private role: Nullable<Role>;
 
   constructor(params: CreateUserRoleEntityPayload) {
     if (!params) return;
@@ -22,8 +28,10 @@ export class UserRole {
     this.id = params.id;
     this.userId = params.userId;
     this.roleId = params.roleId;
+    this.assignedAt = params.assignedAt;
 
     // relation
+    this.role = params.role;
   }
 
   getId(): number {
@@ -36,6 +44,14 @@ export class UserRole {
 
   getRoleId(): number {
     return this.roleId;
+  }
+
+  getAssignedAt(): Date {
+    return this.assignedAt;
+  }
+
+  getRole(): Role {
+    return this.role;
   }
 
   public async edit(params: UpdateUserRoleEntityPayload): Promise<this> {

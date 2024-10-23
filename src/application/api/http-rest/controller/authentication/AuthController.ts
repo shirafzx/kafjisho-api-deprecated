@@ -1,6 +1,9 @@
 import { RegisterBodyParams } from '@application/api/http-rest/controller/authentication/type/authBody';
+import { Roles } from '@core/domain/authentication/Decorator/RoleDecorator';
 import { AuthDiToken } from '@core/domain/authentication/di/AuthDiToken';
+import { JwtAuthGuard } from '@core/domain/authentication/guard/JwtAuthGuard';
 import { LocalAuthGuard } from '@core/domain/authentication/guard/LocalAuthGuard';
+import { RolesGuard } from '@core/domain/authentication/guard/RoleGuard';
 import { AuthService } from '@core/domain/authentication/service/AuthService';
 import {
   IRegisterUseCase,
@@ -9,6 +12,7 @@ import {
 import {
   Body,
   Controller,
+  Get,
   Inject,
   Post,
   Request,
@@ -46,5 +50,30 @@ export class AuthController {
       httpOnly: true,
     });
     return { message: 'Login successful' };
+  }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('ADMIN')
+  @Get('/admin')
+  async getAdmin() {
+    return { message: 'Admin!' };
+  }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('MEMBER', 'ADMIN')
+  @Get('/member')
+  async getMember() {
+    return { message: 'Member!' };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/guest')
+  async getGuest() {
+    return { message: 'Guest!' };
+  }
+
+  @Get('/public')
+  async getPublic() {
+    return { message: 'Public!' };
   }
 }

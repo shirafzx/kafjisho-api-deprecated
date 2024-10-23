@@ -17,20 +17,34 @@ export class AuthService {
       where: {
         username,
       },
+      include: {
+        user_roles: {
+          include: {
+            role: true,
+          },
+        },
+      },
     });
 
     if (user && (await bcrypt.compare(password, user.getEncryptPassword()))) {
       return {
         username: user.getUsername(),
         userId: user.getId(),
+        roles: user
+          .getUserRoles()
+          .map((userRole) => userRole.getRole().getName()),
       };
     }
 
     return null;
   }
 
-  async createAccessToken(params: CreateAccessTokenParams) {
-    const payload = { username: params.username, userId: params.userId };
+  async createAccessToken(user: CreateAccessTokenParams) {
+    const payload = {
+      username: user.username,
+      userId: user.userId,
+      roles: user.roles,
+    };
     return {
       accessToken: this.jwtService.sign(payload),
     };

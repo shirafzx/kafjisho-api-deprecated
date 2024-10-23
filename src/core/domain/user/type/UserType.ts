@@ -1,3 +1,4 @@
+import { UserRole } from '@core/domain/authentication/entity/UserRole';
 import { Nullable } from 'src/common/types';
 
 export type userParams = {
@@ -12,6 +13,7 @@ export type userParams = {
   updatedAt?: Nullable<Date>;
 
   // relation
+  userRoles?: Nullable<UserRole[]>;
 };
 
 export type CreateUserEntityPayload = userParams;

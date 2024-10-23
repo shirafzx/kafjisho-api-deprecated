@@ -3,8 +3,8 @@ import { UserRepositoryPort } from '@core/domain/user/port/persistence/UserRepos
 import {
   IRegisterUseCase,
   RegisterUseCasePayload,
-} from '@core/domain/authentication/usecase/RegisterUseCase';
-import { RegisterUseCaseDto } from '@core/domain/authentication/usecase/dto/RegisterUseCaseDto';
+} from '@core/domain/authentication/useCase/RegisterUseCase';
+import { RegisterUseCaseDto } from '@core/domain/authentication/useCase/dto/RegisterUseCaseDto';
 import * as bcrypt from 'bcrypt';
 
 export class RegisterUseCase implements IRegisterUseCase {

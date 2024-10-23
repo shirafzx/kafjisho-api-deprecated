@@ -4,5 +4,5 @@ import { PrismaRoleEntity } from 'src/infrastructure/persistence/prisma/entity/a
 export type PrismaUserRoleEntity = user_roles;
 
 export type PrismaUserRoleEntityIncluded = {
-  roles?: PrismaRoleEntity[];
+  role?: PrismaRoleEntity;
 };

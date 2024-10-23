@@ -1,0 +1,5 @@
+export enum Role {
+  KANSOKUSHA = 'KANSOKUSHA',
+  TRANSLATOR = 'TRANSLATOR',
+  DEVELOPER = 'DEVELOPER',
+}

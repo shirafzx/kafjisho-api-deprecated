@@ -6,8 +6,8 @@ import {
 import {
   GetJapaneseWordsUseCasePayload,
   IGetJapaneseWordsUseCase,
-} from '@core/domain/jisho/usecase/GetJapaneseWordsUseCase';
-import { GetJapaneseWordsUseCaseDto } from '@core/domain/jisho/usecase/dto/GetJapaneseWordsUseCaseDto';
+} from '@core/domain/jisho/useCase/GetJapaneseWordsUseCase';
+import { GetJapaneseWordsUseCaseDto } from '@core/domain/jisho/useCase/dto/GetJapaneseWordsUseCaseDto';
 import { HttpException, HttpStatus } from '@nestjs/common';
 
 export class GetJapaneseWordsUseCase implements IGetJapaneseWordsUseCase {

@@ -4,6 +4,7 @@ import {
   CreateUserEntityPayload,
   UpdateUserEntityPayload,
 } from '@core/domain/user/type/UserType';
+import { UserRole } from '@core/domain/authentication/entity/UserRole';
 
 export class User {
   @IsNumber()
@@ -39,6 +40,7 @@ export class User {
   private updatedAt?: Nullable<Date>;
 
   // relation
+  private userRoles?: Nullable<UserRole[]>;
 
   constructor(params: CreateUserEntityPayload) {
     if (!params) return;
@@ -56,6 +58,7 @@ export class User {
     this.updatedAt = params.updatedAt || currentDate;
 
     // relation
+    this.userRoles = params.userRoles;
   }
 
   getId(): number {
@@ -92,6 +95,10 @@ export class User {
 
   getUpdatedAt(): Date {
     return this.updatedAt;
+  }
+
+  getUserRoles(): UserRole[] {
+    return this.userRoles;
   }
 
   public async edit(params: UpdateUserEntityPayload): Promise<this> {
