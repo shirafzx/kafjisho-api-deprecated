@@ -56,3 +56,51 @@ model jp_en_meanings {
 
   @@unique([japanese_word_id, english_word_id])
 }
+
+model users {
+  id           Int          @id @default(autoincrement())
+  username     String       @unique
+  email        String       @unique
+  display_name String?
+  avatar       String?
+  bio          String?
+  password     String
+  created_at   DateTime     @default(now())
+  updated_at   DateTime?
+  user_roles   user_roles[]
+}
+
+model roles {
+  id               Int                @id @default(autoincrement())
+  name             String             @unique
+  user_roles       user_roles[]
+  role_permissions role_permissions[]
+}
+
+model permissions {
+  id               Int                @id @default(autoincrement())
+  name             String             @unique
+  role_permissions role_permissions[]
+}
+
+model user_roles {
+  id          Int      @id @default(autoincrement())
+  user_id     Int
+  role_id     Int
+  assigned_at DateTime @default(now())
+  user        users    @relation(fields: [user_id], references: [id])
+  role        roles    @relation(fields: [role_id], references: [id])
+
+  @@unique([user_id, role_id])
+}
+
+model role_permissions {
+  id            Int         @id @default(autoincrement())
+  role_id       Int
+  permission_id Int
+  assigned_at   DateTime    @default(now())
+  roles         roles       @relation(fields: [role_id], references: [id])
+  permissions   permissions @relation(fields: [permission_id], references: [id])
+
+  @@unique([role_id, permission_id])
+}
