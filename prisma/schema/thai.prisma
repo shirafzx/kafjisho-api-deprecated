@@ -1,0 +1,9 @@
+model thai_words {
+  id                   Int                    @id @default(autoincrement())
+  word                 String                 @unique
+  created_at           DateTime               @default(now())
+  updated_at           DateTime?
+  jp_th_meanings       jp_th_meanings[]
+  kanji_th_meanings    kanji_th_meanings[]
+  radicals_th_meanings radicals_th_meanings[]
+}

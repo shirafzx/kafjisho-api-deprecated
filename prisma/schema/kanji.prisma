@@ -1,0 +1,21 @@
+model kanji {
+  id                  Int                   @id @default(autoincrement())
+  kanji               String                @unique
+  kunyomi             String
+  onyomi              String
+  created_at          DateTime              @default(now())
+  updated_at          DateTime?
+  kanji_th_meanings   kanji_th_meanings[]
+  kanji_with_radicals kanji_with_radicals[]
+  word_kanji          word_kanji[]
+}
+
+model kanji_radicals {
+  id                   Int                    @id @default(autoincrement())
+  kanji                String                 @unique
+  onyomi               String
+  created_at           DateTime               @default(now())
+  updated_at           DateTime?
+  radicals_th_meanings radicals_th_meanings[]
+  kanji_with_radicals  kanji_with_radicals[]
+}

@@ -1,0 +1,73 @@
+model word_kanji {
+  id               Int            @id @default(autoincrement())
+  japanese_word_id Int
+  kanji_id         Int
+  created_at       DateTime       @default(now())
+  updated_at       DateTime?
+  japanese_words   japanese_words @relation(fields: [japanese_word_id], references: [id])
+  kanji            kanji          @relation(fields: [kanji_id], references: [id])
+
+  @@unique([japanese_word_id, kanji_id])
+}
+
+model jp_th_meanings {
+  id               Int            @id @default(autoincrement())
+  japanese_word_id Int
+  thai_word_id     Int
+  explanation      String?
+  created_at       DateTime       @default(now())
+  updated_at       DateTime?
+  japanese_word    japanese_words @relation(fields: [japanese_word_id], references: [id])
+  thai_word        thai_words     @relation(fields: [thai_word_id], references: [id])
+
+  @@unique([japanese_word_id, thai_word_id])
+}
+
+model jp_en_meanings {
+  id               Int            @id @default(autoincrement())
+  japanese_word_id Int
+  english_word_id  Int
+  explanation      String?
+  created_at       DateTime       @default(now())
+  updated_at       DateTime?
+  japanese_word    japanese_words @relation(fields: [japanese_word_id], references: [id])
+  english_word     english_words  @relation(fields: [english_word_id], references: [id])
+
+  @@unique([japanese_word_id, english_word_id])
+}
+
+model kanji_th_meanings {
+  id           Int        @id @default(autoincrement())
+  kanji_id     Int
+  thai_word_id Int
+  created_at   DateTime   @default(now())
+  updated_at   DateTime?
+  kanji        kanji      @relation(fields: [kanji_id], references: [id])
+  thai_word    thai_words @relation(fields: [thai_word_id], references: [id])
+
+  @@unique([kanji_id, thai_word_id])
+}
+
+model kanji_with_radicals {
+  id               Int            @id @default(autoincrement())
+  kanji_id         Int
+  kanji_radical_id Int
+  created_at       DateTime       @default(now())
+  updated_at       DateTime?
+  kanji            kanji          @relation(fields: [kanji_id], references: [id])
+  kanji_radicals   kanji_radicals @relation(fields: [kanji_radical_id], references: [id])
+
+  @@unique([kanji_id, kanji_radical_id])
+}
+
+model radicals_th_meanings {
+  id                Int            @id @default(autoincrement())
+  kanji_radicals_id Int
+  thai_word_id      Int
+  created_at        DateTime       @default(now())
+  updated_at        DateTime?
+  kanji_radicals    kanji_radicals @relation(fields: [kanji_radicals_id], references: [id])
+  thai_word         thai_words     @relation(fields: [thai_word_id], references: [id])
+
+  @@unique([kanji_radicals_id, thai_word_id])
+}

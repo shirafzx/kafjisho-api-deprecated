@@ -1,0 +1,47 @@
+model users {
+  id           Int          @id @default(autoincrement())
+  username     String       @unique @db.VarChar(15)
+  email        String       @unique @db.VarChar(50)
+  display_name String?      @db.VarChar(50)
+  avatar       String?
+  bio          String?      @db.VarChar(200)
+  password     String
+  created_at   DateTime     @default(now())
+  updated_at   DateTime?
+  user_roles   user_roles[]
+}
+
+model roles {
+  id               Int                @id @default(autoincrement())
+  name             String             @unique
+  user_roles       user_roles[]
+  role_permissions role_permissions[]
+}
+
+model permissions {
+  id               Int                @id @default(autoincrement())
+  name             String             @unique
+  role_permissions role_permissions[]
+}
+
+model user_roles {
+  id          Int      @id @default(autoincrement())
+  user_id     Int
+  role_id     Int
+  assigned_at DateTime @default(now())
+  user        users    @relation(fields: [user_id], references: [id])
+  role        roles    @relation(fields: [role_id], references: [id])
+
+  @@unique([user_id, role_id])
+}
+
+model role_permissions {
+  id            Int         @id @default(autoincrement())
+  role_id       Int
+  permission_id Int
+  assigned_at   DateTime    @default(now())
+  roles         roles       @relation(fields: [role_id], references: [id])
+  permissions   permissions @relation(fields: [permission_id], references: [id])
+
+  @@unique([role_id, permission_id])
+}
