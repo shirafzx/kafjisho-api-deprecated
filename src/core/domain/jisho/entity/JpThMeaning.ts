@@ -18,6 +18,10 @@ export class JpThMeaning {
   @IsNumber()
   private thaiWordid: number;
 
+  @IsNumber()
+  @IsOptional()
+  private explanation: string;
+
   @IsDate()
   @IsOptional()
   private createdAt?: Nullable<Date>;
@@ -37,6 +41,8 @@ export class JpThMeaning {
     this.id = params.id;
     this.japaneseWordid = params.japaneseWordId;
     this.thaiWordid = params.thaiWordId;
+    this.explanation = params.explanation;
+
     this.createdAt = params.createdAt || currentDate;
     this.updatedAt = params.updatedAt || currentDate;
 
@@ -54,6 +60,10 @@ export class JpThMeaning {
 
   getThaiWordid(): number {
     return this.thaiWordid;
+  }
+
+  getExplanation(): string {
+    return this.explanation;
   }
 
   getCreatedAt(): Date {

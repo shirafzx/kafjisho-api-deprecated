@@ -17,6 +17,7 @@ export class PrismaJpThMeaningMapper {
       id: entity.id,
       japaneseWordId: entity.japanese_word_id,
       thaiWordId: entity.japanese_word_id,
+      explanation: entity.explanation,
       createdAt: entity.created_at,
       updatedAt: entity.updated_at,
       thaiWord,
@@ -36,6 +37,7 @@ export class PrismaJpThMeaningMapper {
       id: domain.getId(),
       japanese_word_id: domain.getJapaneseWordid(),
       thai_word_id: domain.getThaiWordid(),
+      explanation: domain.getExplanation(),
       created_at: domain.getCreatedAt(),
       updated_at: domain.getUpdatedAt(),
     };

@@ -5,6 +5,7 @@ export type JpThMeaningParams = {
   id: number;
   japaneseWordId: number;
   thaiWordId: number;
+  explanation?: string;
   createdAt: Nullable<Date>;
   updatedAt: Nullable<Date>;
 
